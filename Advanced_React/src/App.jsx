@@ -1,9 +1,11 @@
+import AppReactQuiz from "./assets/Projects/React_Quiz_Project_0.1/App_Quiz";
 
-import UseReducerEx from "./assets/exercises/useReducer_Ex";
+
+
 
 function App() {
   return <>
-    <UseReducerEx/>
+    <AppReactQuiz/>
   </>;
 }
 
