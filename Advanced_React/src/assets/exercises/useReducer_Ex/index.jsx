@@ -1,6 +1,6 @@
 import DateCounter from "./DateCounter";
 import './index.css'
-export default function AppReactQuiz(){
+export default function UseReducerEx(){
     return <div>
         <DateCounter/>
     </div>
