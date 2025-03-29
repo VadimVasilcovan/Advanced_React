@@ -5,12 +5,13 @@ import Error from "./Error";
 import Loader from "./Loader.jsx";
 import StartScreen from "./StartScreen.jsx";
 import Question from "./Question.jsx";
-import "./index.css";
+import "../index.css";
 
 const initialState = {
   questions: [],
   //"loding", "error", "ready", "active", "finished"
   status: "loading",
+  index: 0,
 };
 
 function reducer(state, action) {
@@ -33,7 +34,10 @@ function reducer(state, action) {
 }
 
 export default function AppReactQuiz() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, index }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const numQuestions = questions.length;
   useEffect(function () {
@@ -49,8 +53,10 @@ export default function AppReactQuiz() {
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && <StartScreen numQuestions={numQuestions} dispatch={dispatch}/>}
-        {status === "active" && <Question />}
+        {status === "ready" && (
+          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+        )}
+        {status === "active" && <Question question={questions[index]} />}
       </Main>
     </div>
   );
