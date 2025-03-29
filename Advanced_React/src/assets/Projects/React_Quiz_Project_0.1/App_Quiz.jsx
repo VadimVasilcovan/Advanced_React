@@ -4,6 +4,7 @@ import Main from "./Main";
 import Error from "./Error";
 import Loader from "./Loader.jsx";
 import StartScreen from "./StartScreen.jsx";
+import Question from "./Question.jsx";
 import "./index.css";
 
 const initialState = {
@@ -20,6 +21,11 @@ function reducer(state, action) {
       return {
         ...state,
         status: "error",
+      };
+    case "start":
+      return {
+        ...state,
+        status: "active",
       };
     default:
       throw new Error("Action unknown");
@@ -43,7 +49,8 @@ export default function AppReactQuiz() {
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && <StartScreen numQuestions={numQuestions}/>}
+        {status === "ready" && <StartScreen numQuestions={numQuestions} dispatch={dispatch}/>}
+        {status === "active" && <Question />}
       </Main>
     </div>
   );
