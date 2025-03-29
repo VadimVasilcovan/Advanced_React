@@ -4,27 +4,32 @@ import Main from "./Main";
 import "./index.css";
 
 const initialState = {
-    question: [],
-    //"loding", "error", "ready", "active", "finished"
-    status: 'loading'
-}
+  question: [],
+  //"loding", "error", "ready", "active", "finished"
+  status: "loading",
+};
 
-function reducer(state, action){
-switch(action.type){
-    case 'dataReceived':
-        return{...state, question: action.payload,
-        status: 'ready'
-        } 
-}
+function reducer(state, action) {
+  switch (action.type) {
+    case "dataReceived":
+      return { ...state, question: action.payload, status: "ready" };
+    case "dataFailed":
+      return {
+        ...state,
+        status: "error",
+      };
+    default:
+      throw new Error("Action unknown");
+  }
 }
 
 export default function AppReactQuiz() {
-    const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(function () {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
-      .then((data) => dispatch({type: 'dataReceived', payload: data}))
-      .catch((err) => console.error('error'));
+      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .catch((err) => dispatch({type: 'dataFailed'}));
   }, []);
   return (
     <div className="app">
