@@ -7,6 +7,7 @@ import StartScreen from "./StartScreen.jsx";
 import Question from "./Question.jsx";
 import NextButton from "./NextButton.jsx";
 import "../index.css";
+import Progress from "./Progress.jsx";
 
 const initialState = {
   questions: [],
@@ -51,12 +52,18 @@ function reducer(state, action) {
 }
 
 export default function AppReactQuiz() {
-  const [{ questions, status, index, answer }, dispatch] = useReducer(
+  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
     reducer,
     initialState
   );
 
   const numQuestions = questions.length;
+  /* The .reduce() method is used to iterate over an array
+   and accumulate a result. */
+  const maxPossiblePoints = questions.reduce(
+    (prev, cur) => prev + cur.points,
+    0
+  );
   useEffect(function () {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
@@ -75,6 +82,13 @@ export default function AppReactQuiz() {
         )}
         {status === "active" && (
           <>
+            <Progress
+              index={index}
+              numQuestions={numQuestions}
+              points={points}
+              maxPossiblePoints={maxPossiblePoints}
+              answer={answer}
+            />
             <Question
               question={questions[index]}
               dispatch={dispatch}
