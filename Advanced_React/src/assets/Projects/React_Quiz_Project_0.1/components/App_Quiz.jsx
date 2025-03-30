@@ -5,6 +5,7 @@ import Error from "./Error";
 import Loader from "./Loader.jsx";
 import StartScreen from "./StartScreen.jsx";
 import Question from "./Question.jsx";
+import NextButton from "./NextButton.jsx";
 import "../index.css";
 
 const initialState = {
@@ -42,6 +43,8 @@ function reducer(state, action) {
             ? state.points + question.points
             : state.points,
       };
+    case "nextQuestion":
+      return { ...state, index: state.index + 1, answer: null };
     default:
       throw new Error("Action unknown");
   }
@@ -71,11 +74,14 @@ export default function AppReactQuiz() {
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
         {status === "active" && (
-          <Question
-            question={questions[index]}
-            dispatch={dispatch}
-            answer={answer}
-          />
+          <>
+            <Question
+              question={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Main>
     </div>
