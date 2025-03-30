@@ -3,6 +3,7 @@ import { useEffect, useReducer } from "react";
 const initialState = {
   question: [],
   status: "loading",
+  
 };
 
 const reducer = (state, action) => {
