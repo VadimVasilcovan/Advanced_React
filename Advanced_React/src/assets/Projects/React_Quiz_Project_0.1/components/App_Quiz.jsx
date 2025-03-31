@@ -12,6 +12,8 @@ import FinishScreen from "./FinishScreen.jsx";
 import Footer from "./Footer.jsx";
 import Timer from "./Timer.jsx";
 
+const SECS_PER_QUESTION = 30;
+
 const initialState = {
   questions: [],
   //"loding", "error", "ready", "active", "finished"
@@ -20,7 +22,7 @@ const initialState = {
   answer: null,
   points: 0,
   highscore: 0,
-  secondsRemaining: 10,
+  secondsRemaining: null,
 };
 
 function reducer(state, action) {
@@ -36,6 +38,7 @@ function reducer(state, action) {
       return {
         ...state,
         status: "active",
+        secondsRemaining: state.questions.length * SECS_PER_QUESTION
       };
     case "newAnswer":
       /* the .at() method is used to access an element
@@ -61,7 +64,7 @@ function reducer(state, action) {
     case "restart":
       return {
         ...initialState,
-        question: state.question,
+        questions: state.questions,
         status: "ready",
       };
     case "tick":
