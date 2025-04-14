@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+
 import Header from "./Header";
 import Main from "./Main";
 import Error from "./Error";
@@ -25,21 +25,11 @@ export default function AppReactQuiz() {
     highscore,
     secondsRemaining,
     dispatch,
+    numQuestions,
+    maxPossiblePoints
   } = useQuiz();
 
-  const numQuestions = questions.length;
-  /* The .reduce() method is used to iterate over an array
-   and accumulate a result. */
-  const maxPossiblePoints = questions.reduce(
-    (prev, cur) => prev + cur.points,
-    0
-  );
-  useEffect(function () {
-    fetch("http://localhost:8000/questions")
-      .then((res) => res.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }))
-      .catch((err) => dispatch({ type: "dataFailed" }));
-  }, []);
+ 
   return (
     <div className="app">
       <Header />
