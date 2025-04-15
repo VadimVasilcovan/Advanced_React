@@ -14,16 +14,16 @@ import { useQuiz } from "../context/QuizContext.jsx";
 
 export default function AppReactQuiz() {
   const {
-    questions,
+    /* questions, */
     status,
-    index,
+  /*   index,
     answer,
     points,
     highscore,
     secondsRemaining,
     dispatch,
     numQuestions,
-    maxPossiblePoints,
+    maxPossiblePoints, */
   } = useQuiz();
 
   return (

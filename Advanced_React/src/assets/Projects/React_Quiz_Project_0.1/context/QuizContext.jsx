@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer,useEffect } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 
 const QuizContext = createContext();
 
@@ -13,7 +13,6 @@ const initialState = {
   points: 0,
   highscore: 0,
   secondsRemaining: null,
-  
 };
 
 function reducer(state, action) {
@@ -100,7 +99,7 @@ function QuizProvider({ children }) {
         secondsRemaining,
         dispatch,
         numQuestions,
-        maxPossiblePoints
+        maxPossiblePoints,
       }}
     >
       {children}
@@ -109,13 +108,10 @@ function QuizProvider({ children }) {
 }
 
 function useQuiz() {
-    const context = useContext(QuizContext);
-    if (context === undefined)
-      throw new Error("QuizContext was used outside the QuizProvider");
-    return context;
-  }
-  
-  
-
+  const context = useContext(QuizContext);
+  if (context === undefined)
+    throw new Error("QuizContext was used outside the QuizProvider");
+  return context;
+}
 
 export { QuizProvider, useQuiz };
