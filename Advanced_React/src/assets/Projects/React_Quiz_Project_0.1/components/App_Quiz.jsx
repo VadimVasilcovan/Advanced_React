@@ -1,4 +1,3 @@
-
 import Header from "./Header";
 import Main from "./Main";
 import Error from "./Error";
@@ -13,8 +12,6 @@ import Footer from "./Footer.jsx";
 import Timer from "./Timer.jsx";
 import { useQuiz } from "../context/QuizContext.jsx";
 
-
-
 export default function AppReactQuiz() {
   const {
     questions,
@@ -26,10 +23,9 @@ export default function AppReactQuiz() {
     secondsRemaining,
     dispatch,
     numQuestions,
-    maxPossiblePoints
+    maxPossiblePoints,
   } = useQuiz();
 
- 
   return (
     <div className="app">
       <Header />
@@ -37,42 +33,22 @@ export default function AppReactQuiz() {
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && (
-          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
-        )}
+        {status === "ready" && <StartScreen />}
         {status === "active" && (
           <>
-            <Progress
-              index={index}
-              numQuestions={numQuestions}
-              points={points}
-              maxPossiblePoints={maxPossiblePoints}
-              answer={answer}
-            />
+            <Progress />
             <Question
-              question={questions[index]}
+              /* question={questions[index]}
               dispatch={dispatch}
-              answer={answer}
+              answer={answer} */
             />
             <Footer>
-              <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
-              <NextButton
-                dispatch={dispatch}
-                answer={answer}
-                numQuestions={numQuestions}
-                index={index}
-              />
+              <Timer />
+              <NextButton />
             </Footer>
           </>
         )}
-        {status === "finished" && (
-          <FinishScreen
-            points={points}
-            maxPossiblePoints={maxPossiblePoints}
-            highscore={highscore}
-            dispatch={dispatch}
-          />
-        )}
+        {status === "finished" && <FinishScreen />}
       </Main>
     </div>
   );
